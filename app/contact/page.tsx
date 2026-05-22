@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "Get in touch with Qasara for Cove API access, Canton Bridge enquiries, partnerships, and Canton ecosystem questions.",
 };
 
-const FORMSPREE_ID = "FORMSPREE_ID";
+const FORMSPREE_ID = "meedknag";
 
 const enquiryTypes = [
   "Cove API Access",
