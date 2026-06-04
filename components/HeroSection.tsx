@@ -30,7 +30,7 @@ export function HeroSection({
       : "nebula";
 
   return (
-    <section className="relative isolate overflow-hidden pt-24 pb-24 md:pt-32 md:pb-32">
+    <section className="relative isolate overflow-hidden pt-24 pb-12 md:pt-32 md:pb-16">
       <div className={nebulaClass} />
       <div className="grid-overlay" />
       <div className="vignette" />

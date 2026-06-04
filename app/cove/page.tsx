@@ -123,7 +123,7 @@ export default function CovePage() {
       />
 
       {/* WHAT IS COVE */}
-      <section className="relative py-24 md:py-32">
+      <section className="relative py-16 md:py-24">
         <div className="container-page">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
             <Reveal className="lg:col-span-7">
@@ -173,7 +173,7 @@ export default function CovePage() {
       </section>
 
       {/* CIP-56 COMPLIANCE */}
-      <section className="relative py-24 md:py-32 bg-bg-subtle/40">
+      <section className="relative py-16 md:py-24 bg-bg-subtle/40">
         <div className="container-page">
           <SectionHeader
             index="02"
@@ -219,7 +219,7 @@ export default function CovePage() {
       </section>
 
       {/* USE CASES */}
-      <section className="relative py-24 md:py-32">
+      <section className="relative py-16 md:py-24">
         <div className="container-page">
           <SectionHeader
             index="03"
@@ -280,7 +280,7 @@ export default function CovePage() {
       </section>
 
       {/* GET ACCESS */}
-      <section className="relative py-24 md:py-32">
+      <section className="relative py-16 md:py-24">
         <div className="container-page">
           <Reveal>
             <div className="relative overflow-hidden rounded-3xl border border-line bg-bg-card/60 p-10 md:p-16">

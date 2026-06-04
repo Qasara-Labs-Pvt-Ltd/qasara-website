@@ -50,7 +50,7 @@ export default function HomePage() {
       </HeroSection>
 
       {/* PRODUCTS */}
-      <section className="relative py-24 md:py-32">
+      <section className="relative py-16 md:py-24">
         <div className="container-page">
           <SectionHeader
             index="01"
@@ -89,7 +89,7 @@ export default function HomePage() {
       </section>
 
       {/* WHY CANTON */}
-      <section className="relative py-24 md:py-32">
+      <section className="relative py-16 md:py-24">
         <div className="container-page">
           <SectionHeader
             index="02"
@@ -182,7 +182,7 @@ export default function HomePage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="relative py-24 md:py-32">
+      <section className="relative py-16 md:py-24">
         <div className="container-page">
           <Reveal>
             <div className="relative overflow-hidden rounded-3xl border border-line bg-bg-card/60 p-10 md:p-16">

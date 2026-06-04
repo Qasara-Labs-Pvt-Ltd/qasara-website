@@ -5,6 +5,7 @@ import { Logo } from "./Logo";
 const internalLinks = [
   { href: "/cove", label: "Cove" },
   { href: "/bridge", label: "Bridge" },
+  { href: "/services", label: "Services" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -32,7 +33,7 @@ export function Footer() {
 
           <div className="md:col-span-3">
             <div className="eyebrow mb-5">
-              <span>Products</span>
+              <span>Explore</span>
             </div>
             <ul className="flex flex-col gap-3">
               {internalLinks.map((l) => (

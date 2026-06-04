@@ -94,7 +94,7 @@ export default function BridgePage() {
       />
 
       {/* PROBLEM / SOLUTION */}
-      <section className="relative py-24 md:py-32">
+      <section className="relative py-16 md:py-24">
         <div className="container-page">
           <div className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-2">
             <Reveal>
@@ -147,7 +147,7 @@ export default function BridgePage() {
       </section>
 
       {/* SUPPORTED CHAINS */}
-      <section className="relative py-24 md:py-32 bg-bg-subtle/40">
+      <section className="relative py-16 md:py-24 bg-bg-subtle/40">
         <div className="container-page">
           <SectionHeader
             index="03"
@@ -175,7 +175,7 @@ export default function BridgePage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="relative py-24 md:py-32">
+      <section className="relative py-16 md:py-24">
         <div className="container-page">
           <SectionHeader
             index="04"
@@ -207,7 +207,7 @@ export default function BridgePage() {
       </section>
 
       {/* WHY BRIDGE */}
-      <section className="relative py-24 md:py-32 bg-bg-subtle/40">
+      <section className="relative py-16 md:py-24 bg-bg-subtle/40">
         <div className="container-page">
           <SectionHeader
             index="05"
@@ -239,7 +239,7 @@ export default function BridgePage() {
       </section>
 
       {/* STATUS */}
-      <section className="relative py-24 md:py-32">
+      <section className="relative py-16 md:py-24">
         <div className="container-page">
           <SectionHeader
             index="06"
@@ -282,7 +282,7 @@ export default function BridgePage() {
       </section>
 
       {/* CTA */}
-      <section className="relative py-24 md:py-32">
+      <section className="relative py-16 md:py-24">
         <div className="container-page">
           <Reveal>
             <div className="relative overflow-hidden rounded-3xl border border-line bg-bg-card/60 p-10 md:p-16">
