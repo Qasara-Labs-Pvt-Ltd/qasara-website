@@ -88,7 +88,7 @@ export default function HomePage() {
               <ProductCard
                 index="Product 03"
                 title="StrategyForge"
-                description="Non-custodial automated market-making on Canton venues. Your strategies, your accounts — your keys never leave your control."
+                description="Non-custodial automated trading strategies on Canton venues. Your strategies, your accounts — your keys never leave your control."
                 href="/strategyforge"
                 cta="Request Early Access"
                 badge={{ label: "Early Access", tone: "teal" }}
