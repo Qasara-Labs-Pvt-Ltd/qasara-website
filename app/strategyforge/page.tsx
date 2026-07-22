@@ -1,6 +1,7 @@
 // app/strategyforge/page.tsx
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import {
   KeyRound,
   Bot,
@@ -9,10 +10,12 @@ import {
   Clock,
   UserCheck,
   Landmark,
+  Send,
 } from "lucide-react";
 import { HeroSection } from "@/components/HeroSection";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeader } from "@/components/SectionHeader";
+import { SuccessBanner } from "./SuccessBanner";
 
 export const metadata: Metadata = {
   title: "StrategyForge",
@@ -24,6 +27,10 @@ export const metadata: Metadata = {
       "Non-custodial automated market-making on Canton Network. Request early access.",
   },
 };
+
+const FORMSPREE_ID = "meedknag"; // shared site endpoint — StrategyForge leads segmented by hidden fields
+const roles = ["Market maker / LP", "Trader / Quant", "Venue / Exchange", "Institution / Fund", "Other"];
+const interests = ["Market-making", "Arbitrage (early access)", "Just exploring"];
 
 const steps = [
   {
@@ -253,8 +260,166 @@ export default function StrategyForgePage() {
         </div>
       </section>
 
-      {/* EARLY ACCESS — form lands here in Task 2 */}
-      <section id="early-access" className="relative pb-24 md:pb-32" />
+      {/* EARLY ACCESS FORM */}
+      <section id="early-access" className="relative pb-24 md:pb-32">
+        <div className="container-page">
+          <div className="mx-auto max-w-2xl">
+            <Reveal>
+              <div className="relative overflow-hidden rounded-2xl border border-line bg-bg-card/60 p-8 md:p-10">
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-brand-teal/[0.05] via-transparent to-transparent" />
+                <Suspense fallback={null}>
+                  <SuccessBanner />
+                </Suspense>
+                <div className="relative">
+                  <div className="eyebrow mb-4">
+                    <span>Early access</span>
+                  </div>
+                  <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+                    Request early access
+                  </h2>
+                  <p className="mt-3 text-[15px] leading-relaxed text-ink-muted">
+                    Tell us a little about how you trade and we&apos;ll be in touch.
+                  </p>
+
+                  <form
+                    action={`https://formspree.io/f/${FORMSPREE_ID}`}
+                    method="POST"
+                    className="mt-8 flex flex-col gap-5"
+                  >
+                    <input
+                      type="hidden"
+                      name="_next"
+                      value="https://qasara.ai/strategyforge?success=true"
+                    />
+                    <input
+                      type="hidden"
+                      name="_subject"
+                      value="StrategyForge — early access request"
+                    />
+                    <input type="hidden" name="product" value="strategyforge" />
+
+                    <div className="grid gap-5 md:grid-cols-2">
+                      <Field label="Name" required>
+                        <input type="text" name="name" required autoComplete="name" className="form-input" />
+                      </Field>
+                      <Field label="Email" required>
+                        <input type="email" name="email" required autoComplete="email" className="form-input" />
+                      </Field>
+                    </div>
+
+                    <Field label="Company / team">
+                      <input type="text" name="company" autoComplete="organization" className="form-input" />
+                    </Field>
+
+                    <div className="grid gap-5 md:grid-cols-2">
+                      <Field label="Role">
+                        <select name="role" className="form-input appearance-none pr-10" defaultValue="">
+                          <option value="" disabled>
+                            Select…
+                          </option>
+                          {roles.map((r) => (
+                            <option key={r} value={r}>
+                              {r}
+                            </option>
+                          ))}
+                        </select>
+                      </Field>
+                      <Field label="Interested in">
+                        <select name="interested_in" className="form-input appearance-none pr-10" defaultValue="">
+                          <option value="" disabled>
+                            Select…
+                          </option>
+                          {interests.map((r) => (
+                            <option key={r} value={r}>
+                              {r}
+                            </option>
+                          ))}
+                        </select>
+                      </Field>
+                    </div>
+
+                    <Field label="Anything else">
+                      <textarea
+                        name="message"
+                        rows={4}
+                        placeholder="Venues, pairs, or assets you care about — anything that helps us tailor the walkthrough."
+                        className="form-input resize-y"
+                      />
+                    </Field>
+
+                    <label className="flex items-center gap-3 text-sm text-ink-muted">
+                      <input
+                        type="checkbox"
+                        name="demo_requested"
+                        value="yes"
+                        className="h-4 w-4 rounded border-line bg-bg-elevated accent-teal-600"
+                      />
+                      I&apos;d like a demo walkthrough
+                    </label>
+
+                    <div className="pt-2">
+                      <button type="submit" className="btn-primary">
+                        Request early access
+                        <Send className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </form>
+
+                  <p className="mt-8 text-xs leading-relaxed text-ink-dim">
+                    StrategyForge is software tooling. Nothing on this page is financial
+                    advice, and automated trading carries risk.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <style>{`
+        .form-input {
+          width: 100%;
+          background-color: #0D1220;
+          border: 1px solid #1F2937;
+          border-radius: 0.625rem;
+          padding: 0.75rem 0.875rem;
+          color: #F9FAFB;
+          font-size: 0.95rem;
+          line-height: 1.4;
+          transition: border-color 200ms ease, box-shadow 200ms ease;
+          outline: none;
+        }
+        .form-input::placeholder { color: #6B7280; }
+        .form-input:focus {
+          border-color: rgba(13, 148, 136, 0.6);
+          box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+        }
+        select.form-input {
+          background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1L6 6L11 1' stroke='%239CA3AF' stroke-width='1.5'/></svg>");
+          background-repeat: no-repeat;
+          background-position: right 1rem center;
+        }
+      `}</style>
     </>
+  );
+}
+
+function Field({
+  label,
+  required,
+  children,
+}: {
+  label: string;
+  required?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <label className="flex flex-col gap-2">
+      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted">
+        {label}
+        {required && <span className="ml-1 text-brand-teal">*</span>}
+      </span>
+      {children}
+    </label>
   );
 }
