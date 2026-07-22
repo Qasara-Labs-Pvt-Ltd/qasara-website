@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Lock, Zap, Building2, Wallet, Network, Server } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Lock, Zap, Building2, Wallet, Network, Server, Bot } from "lucide-react";
 import { HeroSection } from "@/components/HeroSection";
 import { ProductCard } from "@/components/ProductCard";
 import { SectionHeader } from "@/components/SectionHeader";
@@ -82,6 +82,18 @@ export default function HomePage() {
                 badge={{ label: "In Build", tone: "amber" }}
                 icon={<Network className="h-7 w-7" strokeWidth={1.5} />}
                 accent="purple"
+              />
+            </Reveal>
+            <Reveal index={2}>
+              <ProductCard
+                index="Product 03"
+                title="StrategyForge"
+                description="Non-custodial automated market-making on Canton venues. Your strategies, your accounts — your keys never leave your control."
+                href="/strategyforge"
+                cta="Request Early Access"
+                badge={{ label: "Early Access", tone: "teal" }}
+                icon={<Bot className="h-7 w-7" strokeWidth={1.5} />}
+                accent="teal"
               />
             </Reveal>
           </div>
