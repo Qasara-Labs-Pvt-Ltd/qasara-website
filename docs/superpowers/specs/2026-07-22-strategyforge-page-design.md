@@ -10,7 +10,10 @@ Go-to-market surface for G1 demand validation: a public URL for partner outreach
 **early-access / demo interest form** as the measurable lead funnel.
 
 - **Primary audience (hero speaks to them):** professional market-makers / liquidity-provider
-  firms and quant trading teams entering Canton.
+  firms, quant trading teams, **and crypto-native individual traders / small teams** entering
+  Canton. Copy must stay inclusive of individuals — say "trading teams and individual
+  traders", never "firms"/"institutions" exclusively; the non-custodial pitch lands hardest
+  with self-directed traders who won't hand over keys.
 - **Secondary:** Canton venues & ecosystem partners — addressed by a small partner strip that
   links to `/contact` (Partnership enquiry type), NOT by the main form.
 - **Name:** ships under the working name **StrategyForge** (naming decision deliberately not
@@ -107,8 +110,10 @@ package is added** (explicit decision 2026-07-22).
 - No new dependencies. No backend/API routes. No analytics.
 - Static page (server component) except the Suspense success banner, matching `/contact`.
 - Git identity for this repo: `anand@qasara.ai`.
-- Copy tone: consistent with the existing site voice (institutional, spare) and with the
-  Temple/Cantex outreach language (one voice across outreach + web — STRAT-88 AC).
+- Copy tone: consistent with the existing site voice (spare, credible) and with the
+  Temple/Cantex outreach language (one voice across outreach + web — STRAT-88 AC) — while
+  staying welcoming to individual traders per §1 (no institutional gatekeeping language,
+  e.g. no "for institutions", no minimum-size framing).
 
 ## 7. Testing / acceptance
 
