@@ -20,11 +20,11 @@ import { SuccessBanner } from "./SuccessBanner";
 export const metadata: Metadata = {
   title: "StrategyForge",
   description:
-    "Non-custodial automated market-making on Canton Network. Run strategies on your own venue accounts — your keys never leave your control.",
+    "Non-custodial automated trading strategies on Canton Network. Run strategies on your own venue accounts — your keys never leave your control.",
   openGraph: {
-    title: "StrategyForge — Automated market-making on Canton",
+    title: "StrategyForge — Automated trading strategies on Canton",
     description:
-      "Non-custodial automated market-making on Canton Network. Request early access.",
+      "Non-custodial automated trading strategies on Canton Network. Request early access.",
   },
 };
 
@@ -110,7 +110,7 @@ export default function StrategyForgePage() {
         tone="teal"
         title={
           <>
-            Automated market-making on Canton,{" "}
+            Automated trading strategies on Canton,{" "}
             <span className="bg-gradient-to-br from-brand-mint via-brand-teal to-brand-blue bg-clip-text text-transparent">
               non-custodial by design.
             </span>

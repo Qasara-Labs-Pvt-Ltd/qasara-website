@@ -30,10 +30,15 @@ Two differentiators carry the page:
 2. **Canton-native automation** — market-making strategies running 24/7 on Canton venues
    (Temple CLOB, Tradecraft AMM) out of the box.
 
-**Honesty constraint (binding):** the hero claims **market-making only**
-("Automated market-making on Canton, non-custodial by design"). Arbitrage appears only in
-the Strategies section, explicitly badged **early access**. Nothing on the page may imply
-GA/self-serve availability — every CTA is "Request early access" / demo framing.
+**Honesty constraint (binding):** the hero claims the **platform category**
+("Automated trading strategies on Canton, non-custodial by design") — it must NOT name any
+single not-yet-live strategy as available. Arbitrage appears only in the Strategies section,
+explicitly badged **early access**; market-making (live) is the proven flagship shown first.
+Nothing on the page may imply GA/self-serve availability — every CTA is "Request early
+access" / demo framing. (Amended 2026-07-22: the hero was originally pinned to
+"market-making only"; broadened to the strategy-platform category since the Strategies
+section already differentiates live vs early-access, and the narrow hero undersold the
+product. The guard is unchanged — no not-yet-live strategy named as GA in the hero.)
 
 ## 3. Page structure (top → bottom)
 
