@@ -55,11 +55,11 @@ export default function HomePage() {
           <SectionHeader
             index="01"
             eyebrow="Products"
-            title="Two products. One mission."
-            description="Infrastructure that lets institutions and developers build on Canton without running their own validator."
+            title="Three products. One mission."
+            description="Infrastructure and automation for building and trading on Canton — without running your own validator."
           />
 
-          <div className="mt-16 grid gap-6 md:grid-cols-2">
+          <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <Reveal index={0}>
               <ProductCard
                 index="Product 01"
