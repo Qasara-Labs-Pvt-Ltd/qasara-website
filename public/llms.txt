@@ -1,0 +1,60 @@
+# Qasara
+
+Canton Network infrastructure. Cove is a non-custodial wallet API; some of its
+endpoints are payable per call in Canton Coin, with no signup.
+
+## Agent API — no signup, no API key, pay in CC
+
+Discovery:   GET  https://walletapi.cove.qasara.ai/v1/x402/info          (free)
+Ping:        GET  https://walletapi.cove.qasara.ai/v1/x402/ping          (0.01 CC)
+Fee preview: POST https://walletapi.cove.qasara.ai/v1/x402/transfers/fee-preview  (0.02 CC)
+
+Flow:
+1. Call a priced endpoint without payment → 402 response with a
+   PAYMENT-REQUIRED header (base64 JSON: amount, payTo, feePayer,
+   assetTransferMethod, synchronizerId, instrumentId).
+2. Pay the exact CC amount on Canton mainnet: sign a TransferFactory_Transfer
+   naming the merchant as receiver (transfer-factory) — you do not submit it;
+   the facilitator relays it and pays the traffic, settling in one transaction.
+3. Retry the same request with a PAYMENT-SIGNATURE header.
+4. Get the response, with a PAYMENT-RESPONSE header confirming settlement.
+
+Call GET /v1/x402/info first to see every route and its price in CC before
+sending a payment. Prices are quoted in atomic units: 1 CC = 10^10.
+
+Merchant party (payTo):
+  qasara-validator-1::1220632cdae7977b01e0024d6310a32003bb67a6215cbdfffc6bbc8791be2382f0e0
+Network: canton:mainnet   Instrument: Amulet
+Facilitator: https://facilitator.ftptech.xyz
+
+Your payer party must be hosted by the facilitator, because its relay reads
+your holdings from its own participant. The merchant party need not be:
+preapproval lookup is Scan-backed, so hosting does not matter on that side.
+
+What the priced endpoints return:
+- /v1/x402/ping — a timestamp, the paying party, and the settling update id.
+  Touches no data; it exists to prove the payment loop end to end.
+- /v1/x402/transfers/fee-preview — what a CC or CIP-56 transfer costs: the live
+  Amulet fee schedule, the current traffic price and CC price, and an estimated
+  total. Pass sizeBytes from a transaction you have already prepared for an
+  exact figure; without it the response is labelled as a configured default,
+  not a measurement.
+
+Errors:
+- 402 — payment required, or the facilitator rejected the payment. The body and
+  the PAYMENT-REQUIRED header carry the reason.
+- 400 — the payment envelope was malformed or the facilitator refused it.
+  Retrying it unchanged will not help.
+- 502 — the facilitator is unreachable. Retry with the same payment; do not pay
+  again.
+
+## Developer API — API key, non-custodial
+
+https://walletapi.cove.qasara.ai/v1
+
+Cove Wallet API: a REST gateway to Canton for parties that hold their own keys.
+Prepare-sign-broadcast, so Cove never holds a private key. Covers party
+allocation, balances, CC and CIP-56 transfers, DvP settlement, regulated-asset
+issuance and redemption, and real-time event streams over WebSocket and SSE.
+
+Requires an API key. Contact https://qasara.ai/contact
