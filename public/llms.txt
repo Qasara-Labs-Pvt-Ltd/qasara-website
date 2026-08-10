@@ -7,7 +7,7 @@ endpoints are payable per call in Canton Coin, with no signup.
 
 Discovery:   GET  https://walletapi.cove.qasara.ai/v1/x402/info          (free)
 Ping:        GET  https://walletapi.cove.qasara.ai/v1/x402/ping          (0.01 CC)
-Fee preview: POST https://walletapi.cove.qasara.ai/v1/x402/transfers/fee-preview  (0.02 CC)
+Fee schedule: POST https://walletapi.cove.qasara.ai/v1/x402/transfers/fee-preview  (0.02 CC)
 
 Flow:
 1. Call a priced endpoint without payment → 402 response with a
@@ -34,11 +34,13 @@ preapproval lookup is Scan-backed, so hosting does not matter on that side.
 What the priced endpoints return:
 - /v1/x402/ping — a timestamp, the paying party, and the settling update id.
   Touches no data; it exists to prove the payment loop end to end.
-- /v1/x402/transfers/fee-preview — what a CC or CIP-56 transfer costs: the live
-  Amulet fee schedule, the current traffic price and CC price, and an estimated
-  total. Pass sizeBytes from a transaction you have already prepared for an
-  exact figure; without it the response is labelled as a configured default,
-  not a measurement.
+- /v1/x402/transfers/fee-preview — the live Amulet fee schedule for a CC or
+  CIP-56 transfer, plus the current traffic price, CC price and mining round.
+  Pass amountCc and outputCount to get the Amulet fee subtotal for your
+  transfer. It returns no total cost: the Canton traffic term is set by the
+  sequencer against a free base-rate allowance and cannot be derived from a
+  payload size, so it is reported absent (trafficCost.included: false) rather
+  than estimated. Machine-readable caveats come back in flags[].code.
 
 Errors:
 - 402 — payment required, or the facilitator rejected the payment. The body and
