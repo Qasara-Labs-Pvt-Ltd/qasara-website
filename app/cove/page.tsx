@@ -108,16 +108,10 @@ export default function CovePage() {
               Request Access
               <ArrowRight className="h-4 w-4" />
             </Link>
-            <span
-              className="btn-secondary cursor-not-allowed opacity-60"
-              title="Coming Soon"
-              aria-disabled
-            >
+            <Link href="/cove/docs" className="btn-secondary">
               API Documentation
-              <span className="ml-2 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-dim">
-                Coming Soon
-              </span>
-            </span>
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
           </>
         }
       />
@@ -259,17 +253,18 @@ export default function CovePage() {
                     <span>API Documentation</span>
                   </div>
                   <p className="text-balance text-lg leading-relaxed text-ink md:text-xl">
-                    Full API documentation will be available at{" "}
+                    The full REST reference is published — every endpoint, the
+                    prepare-sign-submit model, error codes, and end-to-end
+                    recipes at{" "}
                     <span className="font-mono text-brand-mint">
-                      docs.qasara.ai
+                      qasara.ai/cove/docs
                     </span>
-                    . We are onboarding design partners now to shape the API
-                    surface.
+                    .
                   </p>
                 </div>
                 <div className="md:col-span-4 md:text-right">
-                  <Link href="/contact" className="btn-primary">
-                    Become a Design Partner
+                  <Link href="/cove/docs" className="btn-primary">
+                    Read the API docs
                     <ArrowUpRight className="h-4 w-4" />
                   </Link>
                 </div>
