@@ -1,35 +1,55 @@
 # Qasara
 
 Canton Network infrastructure. Cove is a non-custodial wallet API; some of its
-endpoints are payable per call in Canton Coin, with no signup.
+endpoints are payable per call, with no signup. Pay in Canton Coin, USDCx or
+USDXLR, whichever you already hold.
 
-## Agent API — no signup, no API key, pay in CC
+## Agent API — no signup, no API key, pay per call
 
-Discovery:   GET  https://walletapi.cove.qasara.ai/v1/x402/info          (free)
-Ping:        GET  https://walletapi.cove.qasara.ai/v1/x402/ping          (0.01 CC)
-Fee schedule: POST https://walletapi.cove.qasara.ai/v1/x402/transfers/fee-preview  (0.02 CC)
+Discovery:    GET  https://walletapi.cove.qasara.ai/v1/x402/info   (free)
+Ping:         GET  https://walletapi.cove.qasara.ai/v1/x402/ping
+Fee schedule: POST https://walletapi.cove.qasara.ai/v1/x402/transfers/fee-preview
+
+Prices, per route, per instrument:
+
+              ping     fee-preview
+  CC          0.01     0.02
+  USDCx       0.002    0.003
+  USDXLR      0.002    0.003
+
+Every option for a route is listed under routes[].accepts in /v1/x402/info,
+each with its own price. Pay in whichever one you hold. Prices are quoted in
+atomic units on the wire: 1 unit = 10^10 atomic.
 
 Flow:
 1. Call a priced endpoint without payment → 402 response with a
    PAYMENT-REQUIRED header (base64 JSON: amount, payTo, feePayer,
-   assetTransferMethod, synchronizerId, instrumentId).
-2. Pay the exact CC amount on Canton mainnet: sign a TransferFactory_Transfer
-   naming the merchant as receiver (transfer-factory) — you do not submit it;
-   the facilitator relays it and pays the traffic, settling in one transaction.
+   assetTransferMethod, synchronizerId, instrumentId). One entry per
+   instrument we accept; pick the one you can pay.
+2. Sign a TransferFactory_Transfer on Canton mainnet naming the merchant as
+   receiver, for the exact amount of the entry you picked. Since core 1.x the
+   signed transaction travels inline in the payment header, so you do not
+   submit it and the facilitator pays the traffic.
 3. Retry the same request with a PAYMENT-SIGNATURE header.
 4. Get the response, with a PAYMENT-RESPONSE header confirming settlement.
 
-Call GET /v1/x402/info first to see every route and its price in CC before
-sending a payment. Prices are quoted in atomic units: 1 CC = 10^10.
+Any wallet that can prepare and sign a TransferFactory_Transfer can pay. The
+payer does not need to be hosted by the facilitator, and neither does the
+merchant: preapproval lookup is Scan-backed, so hosting is irrelevant on both
+sides.
 
 Merchant party (payTo):
-  qasara-validator-1::1220632cdae7977b01e0024d6310a32003bb67a6215cbdfffc6bbc8791be2382f0e0
-Network: canton:mainnet   Instrument: Amulet
+  qsr-x402-ftp::1220632cdae7977b01e0024d6310a32003bb67a6215cbdfffc6bbc8791be2382f0e0
+Network: canton:mainnet
 Facilitator: https://facilitator.ftptech.xyz
 
-Your payer party must be hosted by the facilitator, because its relay reads
-your holdings from its own participant. The merchant party need not be:
-preapproval lookup is Scan-backed, so hosting does not matter on that side.
+Instruments accepted:
+  CC      Amulet, admin DSO::1220b1431ef2...
+  USDCx   admin decentralized-usdc-interchain-rep::12208115f1e1...
+  USDXLR  admin excellar-issuer::12203d1e3693...
+
+Call GET /v1/x402/info for the full party ids, the current prices and the
+authoritative list; it is free and needs no credentials.
 
 What the priced endpoints return:
 - /v1/x402/ping — a timestamp, the paying party, and the settling update id.
