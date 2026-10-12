@@ -152,8 +152,18 @@ check("home card description", homeText.includes("Your trading agent on Canton: 
 check("home card old line gone", !homeText.includes("never leave your control"));
 check("home card CTA", homeText.includes("Join the pilot"));
 
+// Site nav on this page: the pilot is the action, not the developer API.
+const navHtml = start >= 0 ? sfRaw.slice(0, start) : "";
+check("nav has no Get API Access", navHtml.length > 0 && !navHtml.includes("Get API Access"));
+check("nav CTA is Join the pilot -> #join", /href="\/strategyforge#join"[^>]*>Join the pilot/.test(navHtml));
+check("home nav keeps Get API Access", homeRaw.includes("Get API Access"));
+
 // Theme CSS: one top-level rule per selector, so two components never share a class by accident.
 const themeCss = readFileSync("app/strategyforge/sf-theme.css", "utf8").split(/@media/)[0];
+// Nav and Footer take the graphite and gold on this page only.
+check("page background is graphite under the nav", /body:has\(\.sf-theme\)\s*\{[^}]*background-color:\s*#0b0b0c/.test(themeCss));
+check("footer is graphite on this page", /body:has\(\.sf-theme\) > footer\s*\{[^}]*background-color/.test(themeCss));
+check("nav CTA is gold", /\.sf-nav-cta[^{]*\{[^}]*#f0b429/.test(themeCss));
 // Grouped rules (a, b {}) are shared on purpose, so only single-selector rules count.
 const selectors = [...themeCss.matchAll(/^([^{}\n@,][^{}\n,]*)\{/gm)].map((m) => m[1].trim());
 const dupes = selectors.filter((s, i) => selectors.indexOf(s) !== i);

@@ -18,6 +18,10 @@ export function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  // StrategyForge's action is the pilot waitlist; its colours come from sf-theme.css.
+  const cta = pathname.startsWith("/strategyforge")
+    ? { href: "/strategyforge#join", label: "Join the pilot", className: "btn-primary sf-nav-cta" }
+    : { href: "/contact", label: "Get API Access", className: "btn-primary" };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -40,6 +44,7 @@ export function Nav() {
   return (
     <>
       <header
+        data-scrolled={scrolled}
         className={`sticky top-0 z-50 transition-colors duration-300 ${
           scrolled
             ? "border-b border-line/80 bg-bg/80 backdrop-blur-xl"
@@ -63,8 +68,8 @@ export function Nav() {
           </nav>
 
           <div className="hidden md:block">
-            <Link href="/contact" className="btn-primary">
-              Get API Access
+            <Link href={cta.href} className={cta.className}>
+              {cta.label}
               <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
@@ -86,7 +91,7 @@ export function Nav() {
           open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
-        <div className="absolute inset-0 bg-bg/95 backdrop-blur-xl" />
+        <div data-nav-backdrop className="absolute inset-0 bg-bg/95 backdrop-blur-xl" />
         <div className="relative flex h-full flex-col">
           <div className="container-page flex h-16 items-center justify-between border-b border-line">
             <Logo />
@@ -112,8 +117,8 @@ export function Nav() {
                 </Link>
               ))}
             </nav>
-            <Link href="/contact" className="btn-primary w-full justify-center">
-              Get API Access
+            <Link href={cta.href} className={`${cta.className} w-full justify-center`}>
+              {cta.label}
               <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>

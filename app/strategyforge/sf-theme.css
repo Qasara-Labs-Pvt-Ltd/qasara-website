@@ -1,5 +1,5 @@
 /* StrategyForge page v2 theme (spec §4). Every rule is scoped under .sf-theme with sf- class
-   names; Nav, Footer and the rest of qasara.ai keep the Qasara look. */
+   names, except the site chrome block below, which recolours Nav and Footer on this page only. */
 .sf-theme {
   --sf-bg: #0b0b0c;
   --sf-s1: #161618;
@@ -145,6 +145,15 @@
 /* The input drops its outline inside the pill, so the pill carries the focus ring. */
 .sf-theme .sf-email:focus-within { outline: 2px solid var(--sf-gold); outline-offset: 3px; }
 .sf-theme .sf-risk { color: var(--sf-dim); font-size: 12px; text-align: center; margin: 0; }
+
+/* Site chrome on this page: Nav and Footer keep the Qasara logo and links but take the graphite
+   and gold. body:has(.sf-theme) stops these matching other pages after client navigation. */
+body:has(.sf-theme) { background-color: #0b0b0c; }
+body:has(.sf-theme) > header[data-scrolled="true"] { background-color: rgb(11 11 12 / .8); border-color: #2b2b2f; }
+body:has(.sf-theme) [data-nav-backdrop] { background-color: rgb(11 11 12 / .95); }
+body:has(.sf-theme) .nav-link::after { background: #f0b429; }
+body:has(.sf-theme) .sf-nav-cta, body:has(.sf-theme) .sf-nav-cta:hover { background: linear-gradient(180deg, #ffd96b, #f0b429 55%, #d99a14); color: #1a1305; box-shadow: 0 8px 28px rgba(240, 180, 41, .28), inset 0 1px 0 #fff6; }
+body:has(.sf-theme) > footer { background-color: #0e0e10; border-color: #1d1d20; }
 
 @media (max-width: 859px) {
   .sf-theme .sf-section { padding: 56px 16px; }
