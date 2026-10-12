@@ -44,6 +44,8 @@
 .sf-theme .sf-success-wrap { max-width: 1120px; margin: 0 auto; padding: 24px 24px 0; }
 .sf-theme .sf-success { display: flex; gap: 12px; align-items: center; border-radius: 14px; padding: 14px 18px; background: #34d3991a; border: 1px solid #34d39955; color: var(--sf-ink); font-size: 15px; }
 .sf-theme .sf-success svg { color: var(--sf-pos); flex: none; width: 20px; height: 20px; }
+.sf-theme .sf-success-inline { max-width: 460px; margin: 0 auto; text-align: left; }
+.sf-theme .sf-form-error { color: var(--sf-neg); font-size: 14px; margin: 14px 0 0; }
 
 /* hero */
 .sf-theme .sf-hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 44px; align-items: center; padding-top: 40px; }
