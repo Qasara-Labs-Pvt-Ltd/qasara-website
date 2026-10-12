@@ -31,8 +31,8 @@ const partnerships = [
 const contactInfo = [
   {
     label: "Email",
-    value: "admin@qasara.ai",
-    href: "mailto:admin@qasara.ai",
+    value: "team@qasara.ai",
+    href: "mailto:team@qasara.ai",
     icon: <Mail className="h-5 w-5" strokeWidth={1.5} />,
   },
   {

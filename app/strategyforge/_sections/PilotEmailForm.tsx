@@ -58,7 +58,7 @@ export function PilotEmailForm({ action }: { action: string }) {
       </form>
       {status === "error" && (
         <p role="alert" className="sf-form-error">
-          That didn&apos;t go through. Please try again, or email admin@qasara.ai.
+          That didn&apos;t go through. Please try again, or email team@qasara.ai.
         </p>
       )}
     </>
