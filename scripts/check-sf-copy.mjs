@@ -157,6 +157,8 @@ const themeCss = readFileSync("app/strategyforge/sf-theme.css", "utf8").split(/@
 // Grouped rules (a, b {}) are shared on purpose, so only single-selector rules count.
 const selectors = [...themeCss.matchAll(/^([^{}\n@,][^{}\n,]*)\{/gm)].map((m) => m[1].trim());
 const dupes = selectors.filter((s, i) => selectors.indexOf(s) !== i);
+// The email input drops its own outline, so its pill must show the keyboard focus cue instead.
+check("email field shows a keyboard focus ring", /\.sf-theme \.sf-email:focus-within\s*\{[^}]*outline:\s*2px/.test(themeCss));
 check(`no duplicate theme selectors${dupes.length ? ` (${dupes.join("; ")})` : ""}`, dupes.length === 0);
 
 const failed = checks.filter(([, ok]) => !ok);
