@@ -42,7 +42,7 @@ function Cell({ k, v, mono }: { k: string; v: string; mono?: boolean }) {
   return (
     <div className="sf-cell">
       <div className="sf-k">{k}</div>
-      <div className={mono ? "sf-v sf-mono" : "sf-v"}>{v}</div>
+      <div className={mono ? "sf-cv sf-mono" : "sf-cv"}>{v}</div>
     </div>
   );
 }

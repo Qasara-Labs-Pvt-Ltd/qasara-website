@@ -68,7 +68,7 @@
 .sf-theme .sf-g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
 .sf-theme .sf-cell { border-radius: 10px; padding: 9px 10px; background: #0f0f11; border: 1px solid #232327; min-width: 0; }
 .sf-theme .sf-k { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; opacity: .6; margin-bottom: 4px; }
-.sf-theme .sf-v { font-size: 13px; }
+.sf-theme .sf-cv { font-size: 13px; }
 .sf-theme .sf-brain { border-radius: 12px; padding: 11px 12px; font-size: 13px; line-height: 1.45; background: #f0b4290d; border: 1px solid #f0b42933; }
 .sf-theme .sf-brain .sf-k { color: var(--sf-gold); opacity: 1; letter-spacing: .12em; margin-bottom: 5px; }
 .sf-theme .sf-card-foot { margin-top: 10px; font-size: 11.5px; opacity: .75; display: flex; gap: 6px; align-items: center; }

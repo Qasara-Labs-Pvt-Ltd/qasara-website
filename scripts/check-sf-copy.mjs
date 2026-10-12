@@ -152,6 +152,13 @@ check("home card description", homeText.includes("Your trading agent on Canton: 
 check("home card old line gone", !homeText.includes("never leave your control"));
 check("home card CTA", homeText.includes("Join the pilot"));
 
+// Theme CSS: one top-level rule per selector, so two components never share a class by accident.
+const themeCss = readFileSync("app/strategyforge/sf-theme.css", "utf8").split(/@media/)[0];
+// Grouped rules (a, b {}) are shared on purpose, so only single-selector rules count.
+const selectors = [...themeCss.matchAll(/^([^{}\n@,][^{}\n,]*)\{/gm)].map((m) => m[1].trim());
+const dupes = selectors.filter((s, i) => selectors.indexOf(s) !== i);
+check(`no duplicate theme selectors${dupes.length ? ` (${dupes.join("; ")})` : ""}`, dupes.length === 0);
+
 const failed = checks.filter(([, ok]) => !ok);
 for (const [name, ok] of checks) console.log(`${ok ? "ok  " : "FAIL"} ${name}`);
 console.log(`\n${checks.length - failed.length}/${checks.length} checks pass`);
