@@ -1,25 +1,18 @@
-// app/strategyforge/SuccessBanner.tsx
 "use client";
 
 import { useSearchParams } from "next/navigation";
 import { CheckCircle2 } from "lucide-react";
 
+// Rendered at the top of the page: Formspree lands the user there after submitting.
 export function SuccessBanner() {
   const params = useSearchParams();
   if (params.get("success") !== "true") return null;
 
   return (
-    <div
-      role="status"
-      aria-live="polite"
-      className="mb-8 flex items-start gap-4 rounded-2xl border border-brand-teal/40 bg-brand-teal/10 px-5 py-4 text-sm text-brand-mint backdrop-blur-sm"
-    >
-      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" strokeWidth={1.75} />
-      <div>
-        <p className="font-medium text-ink">Request received.</p>
-        <p className="mt-1 text-ink-muted">
-          Thanks — we&apos;ll be in touch about early access.
-        </p>
+    <div className="sf-success-wrap">
+      <div role="status" aria-live="polite" className="sf-success">
+        <CheckCircle2 strokeWidth={1.75} aria-hidden="true" />
+        <p>You&apos;re on the list. We&apos;ll email you when your spot opens.</p>
       </div>
     </div>
   );
