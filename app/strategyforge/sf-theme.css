@@ -19,6 +19,8 @@
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   overflow-x: clip;
+  /* Cancels the Footer's mt-32, which would otherwise show a band of the site background. */
+  margin-bottom: -8rem;
 }
 .sf-theme [id] { scroll-margin-top: 80px; }
 .sf-theme h1, .sf-theme h2, .sf-theme h3, .sf-theme h4 { color: var(--sf-ink); font-weight: 700; }
@@ -157,4 +159,6 @@
 }
 @media (max-width: 479px) {
   .sf-theme .sf-steps { grid-template-columns: 1fr; }
+  /* Desktop line breaks orphan a word at phone width; let headings wrap naturally. */
+  .sf-theme h2 br { display: none; }
 }
