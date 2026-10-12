@@ -88,10 +88,10 @@ export default function HomePage() {
               <ProductCard
                 index="Product 03"
                 title="StrategyForge"
-                description="Non-custodial automated trading strategies on Canton venues. Your strategies, your accounts — your keys never leave your control."
+                description="Your trading agent on Canton: sealed keys, a brain, and limits you set."
                 href="/strategyforge"
-                cta="Request Early Access"
-                badge={{ label: "Early Access", tone: "teal" }}
+                cta="Join the pilot"
+                badge={{ label: "Pilot", tone: "teal" }}
                 icon={<Bot className="h-7 w-7" strokeWidth={1.5} />}
                 accent="teal"
               />
