@@ -37,6 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@QasaraLabs",
     title: "Qasara — Where Canton Flows",
     description:
       "Building the infrastructure layer for Canton Network.",

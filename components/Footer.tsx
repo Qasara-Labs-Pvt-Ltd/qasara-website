@@ -14,6 +14,17 @@ const externalLinks = [
   { href: "https://docs.sync.global", label: "docs.sync.global" },
 ];
 
+const X_URL = "https://x.com/QasaraLabs";
+
+// lucide only has the old Twitter bird, so the X mark is inline.
+function XLogo({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+      <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+    </svg>
+  );
+}
+
 export function Footer() {
   return (
     <footer className="relative mt-32 border-t border-line bg-bg-subtle">
@@ -29,6 +40,15 @@ export function Footer() {
               Building the infrastructure layer for the institutional Canton
               Network era.
             </p>
+            <a
+              href={X_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2.5 rounded-lg border border-line px-3 py-2 text-sm text-ink-muted transition hover:border-ink-dim hover:text-ink"
+            >
+              <XLogo className="h-3.5 w-3.5" />
+              @QasaraLabs
+            </a>
           </div>
 
           <div className="md:col-span-3">
