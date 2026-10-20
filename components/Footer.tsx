@@ -73,7 +73,7 @@ export function Footer() {
 
         <div className="mt-14 flex flex-col gap-4 border-t border-line pt-8 text-xs text-ink-dim md:flex-row md:items-center md:justify-between">
           <p>
-            © 2026 Qasara Labs Pvt Ltd · team@qasara.ai · Built on Canton Network
+            © 2026 Qasara Labs Pvt Ltd · support@qasara.ai · Built on Canton Network
           </p>
           <p className="max-w-md md:text-right">
             Qasara is an independent operator on Canton Network. Canton Network

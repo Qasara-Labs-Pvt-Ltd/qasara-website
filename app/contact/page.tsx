@@ -1,25 +1,15 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
-import { Mail, Globe, Network, Send } from "lucide-react";
+import { Mail, Globe, Network } from "lucide-react";
 import { HeroSection } from "@/components/HeroSection";
 import { Reveal } from "@/components/Reveal";
-import { SuccessBanner } from "./SuccessBanner";
+import { SUPPORT_EMAIL } from "@/lib/contact";
+import { ContactForm } from "./ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
     "Get in touch with Qasara for Cove API access, Canton Bridge enquiries, partnerships, and Canton ecosystem questions.",
 };
-
-const FORMSPREE_ID = "meedknag";
-
-const enquiryTypes = [
-  "Cove API Access",
-  "Canton Bridge",
-  "Partnership",
-  "Press",
-  "Other",
-];
 
 const partnerships = [
   "Institutions and developers building wallet products on Canton",
@@ -31,8 +21,8 @@ const partnerships = [
 const contactInfo = [
   {
     label: "Email",
-    value: "team@qasara.ai",
-    href: "mailto:team@qasara.ai",
+    value: SUPPORT_EMAIL,
+    href: `mailto:${SUPPORT_EMAIL}`,
     icon: <Mail className="h-5 w-5" strokeWidth={1.5} />,
   },
   {
@@ -66,10 +56,6 @@ export default function ContactPage() {
               <div className="relative overflow-hidden rounded-2xl border border-line bg-bg-card/60 p-8 md:p-10">
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-brand-teal/[0.05] via-transparent to-transparent" />
 
-                <Suspense fallback={null}>
-                  <SuccessBanner />
-                </Suspense>
-
                 <div className="relative">
                   <div className="eyebrow mb-4">
                     <span>Send us a message</span>
@@ -78,81 +64,7 @@ export default function ContactPage() {
                     How can we help?
                   </h2>
 
-                  <form
-                    action={`https://formspree.io/f/${FORMSPREE_ID}`}
-                    method="POST"
-                    className="mt-8 flex flex-col gap-5"
-                  >
-                    <input
-                      type="hidden"
-                      name="_next"
-                      value="https://qasara.ai/contact?success=true"
-                    />
-                    <input type="hidden" name="_subject" value="Qasara contact enquiry" />
-
-                    <Field label="Name" name="name" required>
-                      <input
-                        type="text"
-                        name="name"
-                        required
-                        autoComplete="name"
-                        className="form-input"
-                      />
-                    </Field>
-
-                    <div className="grid gap-5 md:grid-cols-2">
-                      <Field label="Email" name="email" required>
-                        <input
-                          type="email"
-                          name="email"
-                          required
-                          autoComplete="email"
-                          className="form-input"
-                        />
-                      </Field>
-                      <Field label="Company" name="company">
-                        <input
-                          type="text"
-                          name="company"
-                          autoComplete="organization"
-                          className="form-input"
-                        />
-                      </Field>
-                    </div>
-
-                    <Field label="Enquiry type" name="enquiry_type">
-                      <select
-                        name="enquiry_type"
-                        className="form-input appearance-none pr-10"
-                        defaultValue=""
-                      >
-                        <option value="" disabled>
-                          Select…
-                        </option>
-                        {enquiryTypes.map((t) => (
-                          <option key={t} value={t}>
-                            {t}
-                          </option>
-                        ))}
-                      </select>
-                    </Field>
-
-                    <Field label="Message" name="message" required>
-                      <textarea
-                        name="message"
-                        required
-                        rows={6}
-                        className="form-input resize-y"
-                      />
-                    </Field>
-
-                    <div className="pt-2">
-                      <button type="submit" className="btn-primary">
-                        Send Message
-                        <Send className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </form>
+                  <ContactForm />
                 </div>
               </div>
             </Reveal>
@@ -234,26 +146,5 @@ export default function ContactPage() {
         }
       `}</style>
     </>
-  );
-}
-
-function Field({
-  label,
-  required,
-  children,
-}: {
-  label: string;
-  name: string;
-  required?: boolean;
-  children: React.ReactNode;
-}) {
-  return (
-    <label className="flex flex-col gap-2">
-      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted">
-        {label}
-        {required && <span className="ml-1 text-brand-teal">*</span>}
-      </span>
-      {children}
-    </label>
   );
 }
