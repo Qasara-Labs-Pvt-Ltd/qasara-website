@@ -5,7 +5,6 @@
 export const SHOW_ARB = true;
 export const SHOW_STEADY_SWAP = true;
 
-export const FORMSPREE_ID = "meedknag"; // shared site endpoint; StrategyForge leads segmented by hidden fields
 export const SECURITY_URL = "https://strategyforge.qasara.ai/security";
 
 export type PlanId = "spread" | "dca" | "trigger" | "trailing" | "arb" | "swap";

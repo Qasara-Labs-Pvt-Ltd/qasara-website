@@ -25,7 +25,7 @@ npm start
 - `/` — Home (hero, products, why Canton, infra & ecosystem, CTA)
 - `/cove` — Cove Wallet API product page
 - `/bridge` — Canton Bridge product page
-- `/contact` — Contact form (Formspree-powered) with success banner
+- `/contact` — Contact form (sent through AWS SES to support@qasara.ai)
 
 ## Deployment
 
@@ -33,7 +33,7 @@ Deploys to Vercel with zero configuration. Vercel auto-detects Next.js 14.
 
 1. Push to GitHub.
 2. Import the repo in Vercel.
-3. Add a `FORMSPREE_ID` environment variable (optional — see Contact Form below).
+3. Add the `MAIL_SMTP_*` environment variables (see Contact Form below).
 4. Deploy.
 
 ## Custom Domain
@@ -45,15 +45,30 @@ Update DNS:
 
 ## Contact Form
 
-The contact page submits to **Formspree**. To activate it:
+The contact page posts to [`app/api/contact/route.ts`](app/api/contact/route.ts), a server-side route
+(a Vercel function) that emails each enquiry to **support@qasara.ai** through Amazon SES over SMTP. The
+credentials stay on the server: nothing without a `NEXT_PUBLIC_` prefix reaches the browser. The
+visitor's address is set as Reply-To, so replying from the support inbox answers them directly. With
+JS off the form still works: the route redirects back to `/contact?success=true` (or `?error=...`).
 
-1. Sign up at [formspree.io](https://formspree.io).
-2. Create a form, copy the form ID.
-3. Open [`app/contact/page.tsx`](app/contact/page.tsx) and replace the `FORMSPREE_ID` constant with your actual ID:
-   ```ts
-   const FORMSPREE_ID = "abcd1234";
-   ```
-4. Successful submissions redirect to `/contact?success=true`, which renders a green confirmation banner.
+It uses the **same SES SMTP credentials as the Cove gateway** (`qasara-canton-gateway`,
+`.env.mainnet.local`): copy the four `MAIL_SMTP_*` values into the Vercel project's environment
+variables. They are SES *SMTP* credentials (generated in the SES console), not an IAM key pair.
+
+| Variable | Required | Default |
+| --- | --- | --- |
+| `MAIL_SMTP_HOST` | yes | — (`email-smtp.eu-west-1.amazonaws.com`) |
+| `MAIL_SMTP_PORT` | no | `587` (STARTTLS) |
+| `MAIL_SMTP_USER` | yes | — |
+| `MAIL_SMTP_PASS` | yes | — |
+| `CONTACT_FROM_EMAIL` | no | `Qasara Website <support@qasara.ai>` |
+| `CONTACT_TO_EMAIL` | no | `support@qasara.ai` |
+
+The `qasara.ai` domain is verified in SES eu-west-1, so `support@qasara.ai` can send.
+
+The StrategyForge "Join the pilot" form works the same way through
+[`app/api/pilot/route.ts`](app/api/pilot/route.ts): one email per signup, subject
+"StrategyForge — pilot waitlist: <email>". Both routes share [`lib/siteMail.ts`](lib/siteMail.ts).
 
 ## File Structure
 
@@ -65,8 +80,10 @@ qasara-website/
 │   ├── globals.css
 │   ├── cove/page.tsx
 │   ├── bridge/page.tsx
+│   ├── api/contact/route.ts
 │   └── contact/
 │       ├── page.tsx
+│       ├── ContactForm.tsx
 │       └── SuccessBanner.tsx
 ├── components/
 │   ├── Nav.tsx

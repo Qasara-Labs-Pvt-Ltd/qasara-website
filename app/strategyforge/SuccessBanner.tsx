@@ -3,9 +3,19 @@
 import { useSearchParams } from "next/navigation";
 import { CheckCircle2 } from "lucide-react";
 
-// Rendered at the top of the page: Formspree lands the user there after submitting.
+// Rendered at the top of the page: a no-JS pilot signup lands here with ?success or ?error.
 export function SuccessBanner() {
   const params = useSearchParams();
+  const error = params.get("error");
+  if (error) {
+    return (
+      <div className="sf-success-wrap">
+        <p role="alert" className="sf-form-error">
+          {error}
+        </p>
+      </div>
+    );
+  }
   if (params.get("success") !== "true") return null;
 
   return (

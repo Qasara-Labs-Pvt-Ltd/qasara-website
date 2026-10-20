@@ -5,10 +5,13 @@ import { CheckCircle2 } from "lucide-react";
 
 type Status = "idle" | "sending" | "done" | "error";
 
-// Formspree's free plan ignores _next and shows its own thank-you page, so with JS on we submit
-// by fetch (Formspree's AJAX mode) and thank the visitor in place. Without JS the plain POST still works.
+const GENERIC_ERROR = "That didn't go through. Please try again, or email support@qasara.ai.";
+
+// With JS on we submit by fetch and thank the visitor in place. Without JS the plain POST still works:
+// the API redirects back to /strategyforge?success=true (or ?error=...) for SuccessBanner to show.
 export function PilotEmailForm({ action }: { action: string }) {
   const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState(GENERIC_ERROR);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -19,8 +22,11 @@ export function PilotEmailForm({ action }: { action: string }) {
         body: new FormData(event.currentTarget),
         headers: { Accept: "application/json" },
       });
+      const body = (await res.json().catch(() => null)) as { error?: string } | null;
+      setError(body?.error ?? GENERIC_ERROR);
       setStatus(res.ok ? "done" : "error");
     } catch {
+      setError(GENERIC_ERROR);
       setStatus("error");
     }
   }
@@ -37,10 +43,10 @@ export function PilotEmailForm({ action }: { action: string }) {
   return (
     <>
       <form action={action} method="POST" className="sf-email" onSubmit={onSubmit}>
-        <input type="hidden" name="_next" value="https://qasara.ai/strategyforge?success=true" />
-        <input type="hidden" name="_subject" value="StrategyForge — pilot waitlist" />
         <input type="hidden" name="product" value="strategyforge" />
         <input type="hidden" name="source" value="sf-page-v2" />
+        {/* Honeypot: hidden from people, filled by bots. */}
+        <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="sf-sr-only" />
         <label htmlFor="sf-join-email" className="sf-sr-only">
           Email
         </label>
@@ -58,7 +64,7 @@ export function PilotEmailForm({ action }: { action: string }) {
       </form>
       {status === "error" && (
         <p role="alert" className="sf-form-error">
-          That didn&apos;t go through. Please try again, or email team@qasara.ai.
+          {error}
         </p>
       )}
     </>

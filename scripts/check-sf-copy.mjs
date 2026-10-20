@@ -116,13 +116,12 @@ check("Tradecraft named nowhere unless arb or swap shows", SHOW_ARB || SHOW_STEA
 // §3.7 FAQ + §5 join
 check("five FAQ entries", (body.match(/<details/g) ?? []).length === 5);
 check("join section id", body.includes('id="join"'));
-check("form posts to Formspree meedknag", body.includes('action="https://formspree.io/f/meedknag"') && /method="post"/i.test(body));
+check("form posts to /api/pilot", body.includes('action="/api/pilot"') && /method="post"/i.test(body));
 const email = inputTag(body, "email");
 check("email input is type=email and required", attr(email, "type") === "email" && /\srequired(=""|\s|\/|>)/.test(email));
-check("hidden _subject", attr(inputTag(body, "_subject"), "value") === "StrategyForge — pilot waitlist");
 check("hidden product", attr(inputTag(body, "product"), "value") === "strategyforge");
 check("hidden source", attr(inputTag(body, "source"), "value") === "sf-page-v2");
-check("hidden _next", attr(inputTag(body, "_next"), "value") === "https://qasara.ai/strategyforge?success=true");
+check("honeypot field present", inputTag(body, "website") !== "");
 check("final block", text.includes("Put an agent to work."));
 check("risk line", text.includes("StrategyForge is software. Nothing here is financial advice. Automated trading carries risk."));
 
