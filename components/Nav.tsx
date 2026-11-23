@@ -19,9 +19,12 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   // StrategyForge's action is the pilot waitlist; its colours come from sf-theme.css.
+  // The Cove page has none: its own Sign up buttons are the call to action.
   const cta = pathname.startsWith("/strategyforge")
     ? { href: "/strategyforge#join", label: "Join the pilot", className: "btn-primary sf-nav-cta" }
-    : { href: "/contact", label: "Get API Access", className: "btn-primary" };
+    : pathname === "/cove"
+      ? null
+      : { href: "/contact", label: "Get API Access", className: "btn-primary" };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -52,7 +55,10 @@ export function Nav() {
         }`}
       >
         <div className="container-page flex h-16 items-center justify-between">
-          <Logo />
+          {/* Equal-width side columns keep the links centred with or without a CTA. */}
+          <div className="flex flex-1 items-center">
+            <Logo />
+          </div>
 
           <nav className="hidden items-center gap-9 md:flex">
             {links.map((link) => (
@@ -67,11 +73,13 @@ export function Nav() {
             ))}
           </nav>
 
-          <div className="hidden md:block">
-            <Link href={cta.href} className={cta.className}>
-              {cta.label}
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
+          <div className="hidden md:flex md:flex-1 md:justify-end">
+            {cta && (
+              <Link href={cta.href} className={cta.className}>
+                {cta.label}
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            )}
           </div>
 
           <button
@@ -117,10 +125,12 @@ export function Nav() {
                 </Link>
               ))}
             </nav>
-            <Link href={cta.href} className={`${cta.className} w-full justify-center`}>
-              {cta.label}
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
+            {cta && (
+              <Link href={cta.href} className={`${cta.className} w-full justify-center`}>
+                {cta.label}
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            )}
           </div>
         </div>
       </div>
