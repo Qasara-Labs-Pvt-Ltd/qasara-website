@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Logo } from "./Logo";
+import { COVE_APP_URL } from "@/lib/links";
 
 const internalLinks = [
   { href: "/cove", label: "Cove" },
@@ -10,6 +11,7 @@ const internalLinks = [
 ];
 
 const externalLinks = [
+  { href: COVE_APP_URL, label: "cove.qasara.ai" },
   { href: "https://canton.network", label: "canton.network" },
   { href: "https://docs.sync.global", label: "docs.sync.global" },
 ];

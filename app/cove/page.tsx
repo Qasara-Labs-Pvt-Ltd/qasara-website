@@ -14,6 +14,7 @@ import {
   Network,
   Briefcase,
 } from "lucide-react";
+import { COVE_APP_URL } from "@/lib/links";
 import { HeroSection } from "@/components/HeroSection";
 import { SectionHeader } from "@/components/SectionHeader";
 import { Reveal } from "@/components/Reveal";
@@ -104,10 +105,15 @@ export default function CovePage() {
         tagline="A safe harbour for institutional digital assets."
         actions={
           <>
-            <Link href="/contact" className="btn-primary">
-              Request Access
+            <a
+              href={`${COVE_APP_URL}/signup`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
+            >
+              Sign up
               <ArrowRight className="h-4 w-4" />
-            </Link>
+            </a>
             <Link href="/cove/docs" className="btn-secondary">
               API Documentation
               <ArrowUpRight className="h-4 w-4" />
@@ -289,17 +295,25 @@ export default function CovePage() {
                     <span>Get Access</span>
                   </div>
                   <h2 className="display-h2 text-balance">
-                    Cove is in private development.
+                    Cove is live on Canton MainNet.
                   </h2>
                   <p className="mt-5 text-lg leading-relaxed text-ink-muted">
-                    We are onboarding select institutional partners and
-                    developers.
+                    Create a wallet at{" "}
+                    <span className="font-mono text-brand-mint">
+                      cove.qasara.ai
+                    </span>{" "}
+                    in minutes.
                   </p>
                 </div>
-                <Link href="/contact" className="btn-primary shrink-0">
-                  Request Access
+                <a
+                  href={`${COVE_APP_URL}/signup`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary shrink-0"
+                >
+                  Sign up
                   <ArrowUpRight className="h-4 w-4" />
-                </Link>
+                </a>
               </div>
             </div>
           </Reveal>
